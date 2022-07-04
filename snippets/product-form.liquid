@@ -27,18 +27,31 @@ for size, we use it to display a size chart (if applicable)
 
         <div {% if option.name == "Material" %} style="display: none;" {% endif %} class="ProductForm__Option">
           {% if option.name == "Color" %}
-          <fieldset class="color-swatches  js-color-swatches">
-            <legend class="color-swatches__legend text-sm color-contrast-medium margin-bottom-xs" aria-live="polite" aria-atomic="true">Color: <span class="color-swatches__color color-contrast-high js-color-swatches__color">Jet</span></legend>
-          
-            <select class="js-color-swatches__select ColorSwatch__Radio" aria-label="Select a color">
-              
-              {%- for value in option.values -%}
-                <option data-action="select-value" class="VariantSelector__Item" value="{{ value | escape }}" 
-                data-background-image="{{ value | handle | append: '.png' | asset_url }}"
-                data-style="background-color: {{ value | replace: ' ', '' }};">{{ value | escape }}</option>
-              {%- endfor -%}
-            </select>
-          </fieldset>
+            <fieldset class="color-swatches  js-color-swatches">
+              <legend class="color-swatches__legend text-sm color-contrast-medium margin-bottom-xs" aria-live="polite" aria-atomic="true">Color: <span class="color-swatches__color color-contrast-high js-color-swatches__color">Jet</span></legend>
+            
+              <select class="js-color-swatches__select ColorSwatch__Radio" aria-label="Select a color">
+                
+                {%- for value in option.values -%}
+                  <option data-action="select-value" class="VariantSelector__Item" value="{{ value | escape }}" 
+                  data-background-image="{{ value | handle | append: '.png' | asset_url }}"
+                  data-style="background-color: {{ value | replace: ' ', '' }};">{{ value | escape }}</option>
+                {%- endfor -%}
+              </select>
+            </fieldset>
+
+            {%- for value in option.values -%}
+              <button type="button" class="Popover__Value {% if value == option.selected_value %}is-selected{% endif %} Heading Link Link--primary u-h6"
+                      data-value="{{ value | escape }}"
+                      data-option-position="{{ option.position }}"
+                      {% if is_option_with_color_swatch %}
+                        data-background-color="{{ value | replace: ' ', '' }}"
+                        data-background-image="{{ value | handle | append: '.png' | asset_url }}"
+                      {% endif %}
+                      data-action="select-value">
+                {{- value | escape -}}
+              </button>
+            {%- endfor -%}
           {% endif %}
           {% if option.name == "Size" %}
           {% endif %}
