@@ -31,11 +31,10 @@ for size, we use it to display a size chart (if applicable)
             <legend class="color-swatches__legend text-sm color-contrast-medium margin-bottom-xs" aria-live="polite" aria-atomic="true">Color: <span class="color-swatches__color color-contrast-high js-color-swatches__color">Jet</span></legend>
           
             <select class="js-color-swatches__select" aria-label="Select a color">
-              <option value="Jet" data-style="background-color: #34252F;">Jet</option>
-              <option value="Arsenic" data-style="background-color: #3B5249;">Arsenic</option>
-              <option value="Wintergreen" data-style="background-color: #519872;">Wintergreen</option>
-              <option value="Laurel Green" data-style="background-color: #A4B494;">Laurel Green</option>
               
+              {%- for value in option.values -%}
+                <option value="{{ value | escape }}" data-style="background-color: {{ value | replace: ' ', '' }};">{{ value | escape }}</option>
+              {%- endfor -%}
             </select>
           </fieldset>
           {% endif %}
