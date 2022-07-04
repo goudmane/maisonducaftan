@@ -28,19 +28,7 @@ for size, we use it to display a size chart (if applicable)
           <button type="button" class="ProductForm__Item" aria-expanded="false" aria-controls="{{ popover_id }}">
             {%- if is_option_with_color_swatch -%}
               {%- assign downcase_value = option.selected_value | downcase -%}
-
-              <span class="ProductForm__ColorSwatch {% if downcase_value == 'white' %}ProductForm__ColorSwatch--white{% endif %}" style="background-color: {{ option.selected_value | replace: ' ', '' }}; background-image: url({{ option.selected_value | handle | append: '.png' | asset_url }})"></span>
-              <span class="ProductForm__SelectedValue">{{ option.selected_value }}</span>
-              <span class="ProductForm__OptionCount Text--subdued">{{ 'product.form.colors_count' | t: count: option.values.size }}</span>
-            {%- else -%}
-              <span class="ProductForm__OptionName">{{ option.name }}: <span class="ProductForm__SelectedValue">{{ option.selected_value }}</span></span>
-            {%- endif -%}
-
-            {%- include 'icon' with 'select-arrow' -%}
-          </button>
-
-          {%- capture popover_html -%}
-            {%- if color_label contains downcase_option and section.settings.show_color_carousel -%}
+              {%- if color_label contains downcase_option and section.settings.show_color_carousel -%}
               {%- for value in option.values -%}
                 {%- if value == option.selected_value -%}
                   {%- assign initial_image_index = forloop.index0 -%}
@@ -160,9 +148,21 @@ for size, we use it to display a size chart (if applicable)
                 </div>
               </div>
             {%- endif -%}
+              <!-- <span class="ProductForm__ColorSwatch {% if downcase_value == 'white' %}ProductForm__ColorSwatch--white{% endif %}" style="background-color: {{ option.selected_value | replace: ' ', '' }}; background-image: url({{ option.selected_value | handle | append: '.png' | asset_url }})"></span>
+              <span class="ProductForm__SelectedValue">{{ option.selected_value }}</span>
+              <span class="ProductForm__OptionCount Text--subdued">{{ 'product.form.colors_count' | t: count: option.values.size }}</span> -->
+            {%- else -%}
+              <span class="ProductForm__OptionName">{{ option.name }}: <span class="ProductForm__SelectedValue">{{ option.selected_value }}</span></span>
+            {%- endif -%}
+
+            {%- include 'icon' with 'select-arrow' -%}
+          </button>
+
+          {%- capture popover_html -%}
+            
           {%- endcapture -%}
 
-         
+          {%- assign product_popovers = product_popovers | append: popover_html -%}
         </div>
       {%- endfor -%}
 
