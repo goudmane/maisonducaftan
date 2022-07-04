@@ -52,6 +52,7 @@
 
     {%- capture slideshow_images -%}
       {%- for image in product.images -%}
+      {{image}}
         {%- if image.alt == 'featured' or image.alt == 'featured mobile' -%}
           {%- continue -%}
         {%- endif -%}
