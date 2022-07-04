@@ -27,16 +27,48 @@ for size, we use it to display a size chart (if applicable)
 
         <div {% if option.name == "Material" %} style="display: none;" {% endif %} class="ProductForm__Option">
           {% if option.name == "Color" %}
-          <fieldset class="color-swatches  js-color-swatches">
-            <legend class="color-swatches__legend text-sm color-contrast-medium margin-bottom-xs" aria-live="polite" aria-atomic="true">Color: <span class="color-swatches__color color-contrast-high js-color-swatches__color">Jet</span></legend>
-          
-            <select class="js-color-swatches__select ColorSwatch__Radio" aria-label="Select a color">
-              
-              {%- for value in option.values -%}
-                <option data-action="select-value" value="{{ value | escape }}" data-style="background-color: {{ value | replace: ' ', '' }};">{{ value | escape }}</option>
-              {%- endfor -%}
-            </select>
-          </fieldset>
+          {%- comment -%}
+            <fieldset class="color-swatches  js-color-swatches">
+              <legend class="color-swatches__legend text-sm color-contrast-medium margin-bottom-xs" aria-live="polite" aria-atomic="true">Color: <span class="color-swatches__color color-contrast-high js-color-swatches__color">Jet</span></legend>
+            
+              <select class="js-color-swatches__select ColorSwatch__Radio" aria-label="Select a color">
+                
+                {%- for value in option.values -%}
+                  <option data-action="select-value" value="{{ value | escape }}" data-style="background-color: {{ value | replace: ' ', '' }};">{{ value | escape }}</option>
+                {%- endfor -%}
+              </select>
+            </fieldset>
+          {%- endcomment -%}
+
+            {%- for option in product.options_with_values -%}
+              {%- assign downcased_option = option.name | downcase -%}
+
+              {%- if downcased_option == 'color' or downcased_option == 'colour' or downcased_option == 'couleur' -%}
+                {%- assign variant_option = 'option' | append: forloop.index -%}
+
+                {%- for value in option.values -%}
+                  {%- assign downcased_value = value | downcase -%}
+                  {%- capture color_id -%}{{ section.id }}-{{ product.id }}-{% increment color_index %}{%- endcapture -%}
+
+                  {%- for variant in product.variants -%}
+                    {%- if variant[variant_option] == value -%}
+                      {%- assign variant_for_value = variant -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  <div class="ProductItem__ColorSwatchItem">
+                    {%- if variant_for_value.image -%}
+                      {%- include 'image-size', sizes: '200,400,600,700,800,900,1000,1200', image: variant_for_value.image -%}
+                      {%- assign variant_image_url = variant_for_value.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                    {%- endif -%}
+
+                    <input class="ColorSwatch__Radio" type="radio" name="{{ color_name }}" id="{{ color_id }}" value="{{ value | escape }}" {% if option.selected_value == value %}checked="checked"{% endif %} data-variant-url="{{ variant_for_value.url }}" {% if variant_for_value.image %}data-image-id="{{ variant_for_value.image.id }}" data-image-url="{{ variant_image_url }}" data-image-widths="[{{ supported_sizes }}]" data-image-aspect-ratio="{{ variant_for_value.image.aspect_ratio }}"{% endif %} aria-hidden="true">
+                    <label class="ColorSwatch ColorSwatch--small" for="{{ color_id }}" style="background-color: {{ value | replace: ' ', '' | downcase }}; background-image: url({{ value | handle | append: '.png' | asset_url }})" title="{{ value | escape }}" data-tooltip="{{ value | escape }}"></label>
+                  </div>
+                {%- endfor -%}
+              {%- endif -%}
+            {%- endfor -%}
           {% endif %}
           {% if option.name == "Size" %}
           {% endif %}
