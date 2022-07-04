@@ -30,7 +30,7 @@ for size, we use it to display a size chart (if applicable)
           <fieldset class="color-swatches  js-color-swatches">
             <legend class="color-swatches__legend text-sm color-contrast-medium margin-bottom-xs" aria-live="polite" aria-atomic="true">Color: <span class="color-swatches__color color-contrast-high js-color-swatches__color">Jet</span></legend>
           
-            <select class="js-color-swatches__select" aria-label="Select a color">
+            <select class="js-color-swatches__select ColorSwatch__Radio" aria-label="Select a color">
               
               {%- for value in option.values -%}
                 <option data-action="select-value" value="{{ value | escape }}" data-style="background-color: {{ value | replace: ' ', '' }};">{{ value | escape }}</option>
