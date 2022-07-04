@@ -1,0 +1,53 @@
+<div class="block">
+    <img src="{{ section.settings.image | image_url}}"
+        data-speed="{{ section.settings.products_per_page }} " class="img-parallax">
+  
+    <div class="container text-center positionImagetxt">
+        <h2 style="text-transform: uppercase;">{{ section.settings.text_title }} </h2>
+        <a href="{{ section.settings.href_lien }} "> {{ section.settings.text_lien }} </a>
+    </div>
+</div>
+{{ section.settings.custom_text_title }} 
+{% schema %}
+{
+"name": "section box",
+"settings": [
+  {
+  "type": "image_picker",
+  "id": "image",
+  "label": "Image"
+  },
+  {
+   	"type": "number",
+    "id": "products_per_page",
+    "label": "Products per page",
+    "default": 1
+
+  },
+  {
+   	"id": "text_title",
+    "type": "text",
+    "label": "collection title",
+    "default": "New <br>in women"
+  },
+  {
+    "id": "href_lien",
+    "type": "url",
+    "label": "Lien collection"
+    
+  },
+  {
+    "id": "text_lien",
+    "type": "text",
+    "label": "url text",
+    "default": "Discover"
+  }
+],
+"presets": [
+  {
+  "name": "parallax-section",
+  "category": "Custom"
+  }
+]
+}
+{% endschema %}

@@ -1,0 +1,77 @@
+<div class="trust-budges-section">
+  <div class="trust-budge-block">
+    <i class="fa-solid fa-truck-fast"></i>
+  <span> Free shipping </span>
+    <p>
+    we offer free shipping on all orders , via ARAMEX
+    </p>  
+  </div>
+  <div class="trust-budge-block">
+    <i class="fa-solid fa-headset"></i>
+   <h2> support 24/7 </h2>
+    <p>
+    contact us and we'll be happy to assist you
+    </p> 
+  </div>
+  <div class="trust-budge-block">
+    <i class="fa-solid fa-arrow-rotate-left"></i>
+   <h2>30 days return</h2>
+    <p>
+     your purshases do not meet your expextations ? simply return it within 30 days for an exchange.
+    </p> 
+  </div>
+  <div class="trust-budge-block">
+    <i class="fa-brands fa-cc-visa"></i>
+   <h2>100% Payement secure</h2>
+    <p>
+     we ensure secure payement with PEV
+    </p> 
+  </div>
+
+</div>
+
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+.trust-budge-block {
+    width: 25%;
+text-align: center;
+    margin-inline: 5%;
+
+}
+
+.trust-budge-block span {
+font-weight: bold;
+}
+
+.trust-budge-block i {
+font-size: xx-large;
+}
+
+
+.trust-budges-section {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.trust-budges-section { 
+             padding: 5%;
+             border-top: 1px solid #0000001f;
+}
+
+
+@media (max-width: 500px) {
+.trust-budges-section { display: none !important;}
+}
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

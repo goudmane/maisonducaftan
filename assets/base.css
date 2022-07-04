@@ -1,0 +1,222 @@
+a:hover{
+  cursor:pointer;
+}
+
+@keyframes loaderAnim {
+	to {
+		opacity: 1;
+		transform: scale3d(0.5,0.5,1);
+	}
+}
+
+
+.swatch--gl:has(> label[data-name="Material"]) {
+	display: none;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	align-items: center;
+	padding-bottom: 9.5rem;	
+    padding-top: var(--header-height);
+	counter-reset: figure; 
+	margin-bottom: -100px;
+    transition: transform 0.9s ease-in-out;
+}
+
+.item {
+	/* margin: 10vh auto; */
+	margin: 0vh auto;
+	max-width: 100%;
+	position: relative;
+	will-change: transform;
+}
+
+.item:nth-child(even)::before {
+	right: 0;
+}
+
+.item__img-wrap {
+	--aspect-ratio: 4/1.5;
+	/* overflow: hidden; */
+	width: 500px;
+	margin: 0 auto;
+	padding-bottom: calc(100% / (var(--aspect-ratio)));
+	max-width: calc(100%);
+	will-change: transform;
+}
+
+/* 1500/844; */
+.item:first-child .item__img-wrap {
+	width: calc(100vw );
+	/* --aspect-ratio: 1500/580; */
+	--image: url(https://cdn.shopify.com/s/files/1/0553/5226/2725/files/PQ0A6374nb_2x1_e3c39b70-30a6-41ac-8e14-fb9535e0e5f9.jpg?v=1654528597);
+}
+
+.item:nth-child(2) .item__img-wrap {
+	width: calc(100vw );
+	/* --aspect-ratio: 1500/580; */
+	--image: url(https://cdn.shopify.com/s/files/1/0553/5226/2725/files/PQ0A6285_2x1-2.jpg?v=1655122041);
+}
+
+.item:nth-child(3) .item__img-wrap {
+	width: calc(100vw);
+	/* --aspect-ratio: 1500/580; */
+	--image: url(https://cdn.shopify.com/s/files/1/0553/5226/2725/files/PQ0A5933_2x1-3.jpg?v=1655122041);
+}
+
+.item:nth-child(4) .item__img-wrap {
+	width: calc(100vw );
+	/* --aspect-ratio: 1500/580; */
+	--image: url(https://cdn.shopify.com/s/files/1/0553/5226/2725/files/PQ0A6258_2x1-4.jpg?v=1655122041);
+}
+
+.item:nth-child(5) .item__img-wrap {
+	width: calc(100vw );
+	/* --aspect-ratio: 1500/580; */
+	--image: url(https://cdn.shopify.com/s/files/1/0553/5226/2725/files/ZR5B4866_2x1_9ea54c69-3d74-46a3-9d5c-1d0ec406ca66.jpg?v=1655122040);
+}
+.item:last-child {
+	margin-bottom: 500px;
+}
+
+
+.item:nth-child(6) .item__img-wrap {
+	width: calc(100vw );
+	/* --aspect-ratio: 1500/580; */
+	--image: url(https://cdn.shopify.com/s/files/1/0553/5226/2725/files/maisoncaftan_atelier_am__2x1_3a5732c2-95e1-40f8-a57d-e00977519a13.jpg?v=1655123030);
+}
+
+
+.item:nth-child(7) .item__img-wrap {
+	width: 900px;
+	--aspect-ratio: 1000/749;
+	--image: url(https://tympanus.net/Tutorials/SmoothScrollAnimations/img/7.jpg);
+}
+
+.item:nth-child(8) .item__img-wrap {
+	width: 900px;
+	--aspect-ratio: 1000/562;
+	--image: url(https://tympanus.net/Tutorials/SmoothScrollAnimations/img/8.jpg);
+}
+
+
+
+.item__img {
+	--overflow: 40px;
+    height: calc(100% + (3 * var(--overflow)));
+    top: calc( -1 * var(--overflow));
+    width: 100%;
+    position: absolute;
+    background-image: var(--image);
+    background-size: cover;
+    background-position: 50% 170px;
+    will-change: transform;
+    background-repeat: no-repeat;
+}
+
+.item__img--t1 {
+	--overflow: 60px;
+}
+
+.item__img--t2 {
+	--overflow: 80px;
+}
+
+.item__img--t3 {
+	--overflow: 120px;
+}
+
+.item__caption {
+	padding: 2rem 1rem;
+}
+
+.item__caption-title {
+	font-family: paralucent, sans-serif;
+	font-weight: 400;
+	font-size: 3rem;
+	margin: 0;
+}
+
+.item__caption-copy {
+	margin: 0;
+}
+
+.item__caption-copy::before {
+	content: '__';
+	line-height: 1;
+	/* color: var(--color-link); */
+	font-weight: 700;
+	font-size: 3rem;
+	margin: 0 0 1rem;
+	display: block;
+}
+
+
+body.template-index #shopify-section-footer{
+
+	width: 100%;
+	z-index: 2;
+	bottom: 0;
+}
+body.template-index #shopify-section-header{
+	position: fixed !important;
+	z-index: 10 !important;
+  
+}
+
+body.template-index .Container > .Rte{
+   margin-top: var(--header-height);
+  
+  
+}
+body.template-index #main{
+	z-index: 3;
+}
+      
+   
+ body.template-index footer#section-footer{
+   height: calc(100vh - var(--header-height));
+}
+      .carousel-image {
+  min-width: 150px;
+  height: 200px;
+}
+      
+.center{
+    text-align: center !important;
+       font-family: 'Metropolis-SemiBold' !important;
+    font-size: 13px !important;
+    color: #fff !important;
+      line-height: 10px !important;
+}
+      
+.center-block{
+
+  display:grid !important;
+  top: 82% !important;
+}
+      
+.center-block span{
+   text-align: center !important;
+   font-family: 'Metropolis-ExtraBold' !important;
+   font-size: 30px !important;
+   color: #fff !important;
+   text-transform: uppercase;
+}
+     
+.center-block a{
+   text-align: center;
+    text-decoration: none !important; 
+    font-family: 'Metropolis-SemiBold' !important;
+    color: #fff !important;
+    font-size: 10pt;
+  border: 1px solid;
+    width: 5%;
+    margin: auto;
+    padding: 5px 0px;
+}
+      
+      

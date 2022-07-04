@@ -1,0 +1,17 @@
+<p>
+This traditional caftan {{ product.metafields.my_fields.technical_detail }} and made with original 
+                   {{ product.options_by_name['Material'].values }} , designed especially for {{ product.metafields.my_fields.gender }}
+  
+  {% if product.metafields.my_fields.has_belt  %} 
+  , comes with a small belt to nicely mark your waist
+
+{% endif %}
+  
+  
+  
+  . Our caftans are made for your comfort, and are suitable for various events. {% if product.tags contains 'large' %}
+  This model is also suitable for large sizes
+
+{% endif %}
+  
+</p>  

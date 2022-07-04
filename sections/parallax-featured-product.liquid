@@ -1,0 +1,89 @@
+{%- assign featured_product = all_products[section.settings.featured_product_handle] -%} 
+ <div class="featured lazy" style="background: url({% if section.settings.img_product %}{{ section.settings.img_product | img_url: 'master' }}{% else %}https://via.placeholder.com/1200x800{% endif %}) 50% 70%;"> 
+    <div class="opacity-mask d-flex align-items-center"> 
+       <div class="container margin_60"> 
+          <div class="row justify-content-center justify-content-md-start"> 
+            
+             <div class="column-one"> 
+                <h3>{{ featured_product.title }}</h3> 
+                <p>{{ featured_product.description | truncate: 100 }}</p> 
+                <div class="feat_text_block"> 
+                   <div class="price_box"> 
+                      <span class="new_price">{{ featured_product.variants.first.price | money }}</span> 
+                      {%- if featured_product.variants.first.compare_at_price > featured_product.variants.first.price -%} 
+                      <span class="old_price">{{ featured_product.variants.first.compare_at_price | money }}</span> 
+                      {%- endif -%} 
+                   </div> 
+                   <a class="btn" href="{{ featured_product.url }}" role="button">{{ section.settings.txt_button }}</a> 
+                </div> 
+                   {%- if section.settings.subheading != blank or section.settings.title != blank or section.settings.content != blank -%}
+        <div class="ImageHero__ContentOverlay">
+          {%- if section.settings.subheading != blank or section.settings.title != blank -%}
+            <header class="SectionHeader">
+              {%- if section.settings.subheading != blank -%}
+                <h3 class="SectionHeader__SubHeading Heading u-h6">{{ section.settings.subheading | escape }}</h3>
+              {%- endif -%}
+
+              {%- if section.settings.title != blank -%}
+                <h2 class="SectionHeader__Heading Heading u-h1">{{ section.settings.title | escape }}</h2>
+              {%- endif -%}
+
+              {%- if section.settings.content != blank -%}
+                <div class="SectionHeader__Description parallax-text ">
+                  {{ section.settings.content }}
+                </div>
+              {%- endif -%}
+            </header>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+             </div> 
+          </div> 
+       </div> 
+    </div> 
+ </div> 
+ <!-- /featured --> 
+   
+
+
+ {% schema %} 
+ { 
+   "name": "Featured Product Parallax", 
+   "settings": [ 
+     { 
+       "type": "header", 
+       "content": "Parallax featured product" 
+     }, 
+     { 
+       "type": "image_picker", 
+       "id": "img_product", 
+       "label": "Section image" 
+     }, 
+ {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sub-heading"
+    },
+      
+{
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Tell your story"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Text",
+      "default": "<p>Add your own custom content to give more information about your store, availability details...</p>"
+    }
+     
+   ], 
+   "presets": [ 
+     { 
+       "name": "Featured Product Parallax", 
+       "category": "Products" 
+     } 
+   ] 
+ } 
+ {% endschema %} 

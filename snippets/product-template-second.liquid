@@ -1,0 +1,152 @@
+
+  {% for color_option in product.options_by_name['Color'].values %}
+
+    <div {% if forloop.index == 1 %} class="product-gallery show-section" {% else %} class="product-gallery hide-section" {% endif %} data-color="{{color_option}}" >
+    {%- capture slideshow_images -%}
+      
+      {%- for image in product.images -%}
+      
+        {% if image.alt contains color_option %}
+      
+        {%- if image.alt == 'featured' or image.alt == 'featured mobile' -%}
+          {%- continue -%}
+        {%- endif -%}
+
+        {%- if image.id == product.selected_or_first_available_variant.image.id -%}
+          {%- assign initial_image_index = image_count -%}
+          {%- assign initial_image_id = image.id -%}
+        {%- endif -%}
+
+        {%- include 'image-size', sizes: '200,400,600,700,800,900,1000,1200,1400,1600', image: image -%}
+
+        {%- assign is_video = false -%}
+
+        {%- if image.alt contains 'youtube.com/embed' or image.alt contains 'player.vimeo.com' -%}
+          {%- assign is_video = true -%}
+        {%- endif -%}
+
+        <div id="Image{{ image.id }}" class="Product__SlideItem Product__SlideItem--{% if is_video %}video{% else %}image{% endif %} Carousel__Cell {% if initial_image_id == image.id %}is-selected{% endif %}"
+             {% if is_video %}data-action="open-modal" aria-controls="modal-video-{{ image.id }}"{% endif %}
+             {% unless is_video %}data-image-position-ignoring-video="{% increment image_position_without_video %}"{% endunless %}
+             data-image-position="{% increment image_position %}"
+             data-image-id="{{ image.id }}">
+          <div class="AspectRatio AspectRatio--withFallback" style="padding-bottom: {{ 100.0 | divided_by: image.aspect_ratio }}%; --aspect-ratio: {{ image.aspect_ratio }};">
+            {% assign image_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+
+            <img class="Image--lazyLoad Image--fadeIn carousel-cell"
+                 {% if initial_image_id == image.id %}src="{{ image | img_url: '250x' }}"{% endif %}
+                 data-src="{{ image_url }}"
+                 data-widths="[{{ supported_sizes }}]"
+                 data-sizes="auto"
+                 data-expand="-100"
+                 alt="{{ image.alt | escape }}"
+                 data-max-width="{{ image.width }}"
+                 data-max-height="{{ image.height }}"
+                 data-original-src="{{ image | img_url: 'master' }}">
+
+            <img class="trust-img" src="https://cdn.shopify.com/s/files/1/0553/5226/2725/files/mda-en.png?v=1651147765" loading="lazy" >
+            <span class="Image__Loader"></span>
+
+            {%- if is_video -%}
+              <button type="button" class="Video__PlayButton" aria-label="{{ 'home_page.featured_video.play' | t }}">{% include 'icon' with 'play' %}</button>
+            {%- endif -%}
+
+            <noscript>
+              <img src="{{ image | img_url: '800x' }}" alt="{{ image.alt | escape }}">
+            </noscript>
+          </div>
+        </div>
+
+        {%- assign image_count = image_count | plus: 1 -%}
+      
+      {% endif %}
+      
+      {%- endfor -%}
+    {%- endcapture -%}
+
+    {%- if product.images.size > 0 -%}
+    
+    <!--    start comment  -->
+
+      <div class="Product__Gallery {% if section.settings.show_thumbnails and image_count > 1 %}Product__Gallery--withThumbnails{% else %}Product__Gallery--withDots{% endif %}">
+        <span id="ProductGallery" class="Anchor"></span>
+
+        {%- if action_list_items != blank -%}
+          <div class="Product__ActionList ">
+          {{ action_list_items }}
+          </div>
+        {%- endif -%}
+
+        {%- if image_count > 1 -%}
+          {%- if section.settings.show_thumbnails -%}
+            <div class="Product__SlideshowNav Product__SlideshowNav--thumbnails">
+              <div class="Product__SlideshowNavScroller">
+                {%- for image in product.images -%}
+                
+                 {% if image.alt contains color_option %}
+                  {%- if image.alt == 'featured' or image.alt == 'featured mobile' -%}
+                    {%- continue -%}
+                  {%- endif -%}
+
+                  {%- assign is_video = false -%}
+
+                  {%- if image.alt contains 'youtube.com/embed' or image.alt contains 'player.vimeo.com' -%}
+                    {%- assign is_video = true -%}
+                  {%- endif -%}
+
+                  <a href="#Image{{ image.id }}" class="Product__SlideshowNavImage {% if is_video %}Product__SlideshowNavImage--video{% endif %} AspectRatio {% if forloop.first %}is-selected{% endif %}" style="--aspect-ratio: {{ image.aspect_ratio }}">
+                    <img src="{{ image | img_url: '160x' }}">
+
+                    {%- if is_video -%}
+                      <button type="button" class="Product__SlideshowNavPlay" data-action="play-video" aria-label="{{ 'home_page.featured_video.play' | t }}">{% include 'icon' with 'play' %}</button>
+                    {%- endif -%}
+                  </a>
+                
+                {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+
+          <div class="Product__SlideshowNav Product__SlideshowNav--dots">
+            <div class="Product__SlideshowNavScroller">
+              {%- for image in product.images -%}
+                 {% if image.alt contains color_option %}
+              
+                {%- if image.alt == 'featured' or image.alt == 'featured mobile' -%}
+                  {%- continue -%}
+                {%- endif -%}
+
+                <a href="#Image{{ image.id }}" class="Product__SlideshowNavDot {% if forloop.first %}is-selected{% endif %}"></a>
+              
+               {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- capture flickity_options -%}
+        {
+          "prevNextButtons": true,
+          "initialIndex": {{ initial_image_index }}
+        }
+        {%- endcapture -%}
+
+        <div class="Product__Slideshow {% if section.settings.enable_image_zoom %}Product__Slideshow--zoomable{% endif %} Carousel" data-flickity-config='{{ flickity_options }}'>
+          {{ slideshow_images }}
+        </div>
+      </div>
+
+ 
+<!--    end comment nhere  -->
+  
+    {% comment %}
+    {%- include 'product_slider' -%}
+    {% endcomment %}
+  
+    {%- endif -%}
+
+      
+</div>  
+    {% endfor %}
+    

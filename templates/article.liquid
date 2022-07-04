@@ -1,0 +1,20 @@
+{% section 'article-template' %}
+{% section 'shop-now' %}
+<script type="application/ld+json">
+{ "@context": "https://schema.org", 
+ "@type": "BlogPosting",
+ "headline": "{{ article.title }}",
+ "image": "{{ article.image }}",
+ "editor": "{{ article.author }}", 
+ "keywords": "{{ article.tags | join: ', ' }}", 
+ "publisher": "{{ article.author }}",
+ "url": "{{ article.url }}",
+ "datePublished": "{{ article.published_at }}",
+ "dateModified": "{{ article.updated_at }}",
+ "articleBody": "{{ article.excerpt_or_content | escape }}",
+ "author": {
+    "@type": "Person",
+    "name": "{{ aticle.author }}"
+  }
+ }
+</script>
