@@ -33,7 +33,7 @@ for size, we use it to display a size chart (if applicable)
             <select class="js-color-swatches__select" aria-label="Select a color">
               
               {%- for value in option.values -%}
-                <option value="{{ value | escape }}" data-style="background-color: {{ value | replace: ' ', '' }};">{{ value | escape }}</option>
+                <option data-action="select-value" value="{{ value | escape }}" data-style="background-color: {{ value | replace: ' ', '' }};">{{ value | escape }}</option>
               {%- endfor -%}
             </select>
           </fieldset>
