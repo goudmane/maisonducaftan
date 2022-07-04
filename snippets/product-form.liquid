@@ -25,8 +25,9 @@ for size, we use it to display a size chart (if applicable)
         {%- endif -%}
 
         <div {% if option.name == "Material" %} style="display: none;" {% endif %} class="ProductForm__Option">
-          {{  option.name  }}
-          {% if option.name == "Material" %}
+          {% if option.name == "Color" %}
+          {% endif %}
+          {% if option.name == "Size" %}
           {% endif %}
         </div>
       {%- endfor -%}
