@@ -13,7 +13,7 @@ for size, we use it to display a size chart (if applicable)
 
 {%- form 'product', product, class: 'ProductForm' -%}
   <div class="ProductForm__Variants">
-    {%- unless product.has_only_default_variant -%}
+    {%- unless product.has_only_default_variant -%} 
       {%- for option in product.options_with_values -%}
         {%- assign downcase_option = option.name | downcase -%}
         {%- capture popover_id -%}popover-{{ product.id }}-{{ section.id }}-{{ option.name | handle }}{%- endcapture -%}
